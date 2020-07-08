@@ -10,13 +10,13 @@ public class LevelManager : MonoBehaviour
 	[SerializeField]
 	private Ball ballPrefab;
 	private Ball ball;
-	public Transform spawnPoint;
 
-	public GameObject imageTarget;
-	public GameObject[] levels;
-	public int levelIndex = -1;
+	public Level[] levels;
+	public int currentLevel = -1;
 
 	public static LevelManager Instance;
+
+	public float levelHeight = 1;
 
 	private void Start()
 	{
@@ -28,10 +28,11 @@ public class LevelManager : MonoBehaviour
 		foreach (var level in levels)
 		{
 			level.gameObject.SetActive(false);
+			level.transform.position = Vector3.up * levelHeight;
 		}
 
 		FinishLevel();
-		SpawnBall();
+
 	}
 
 	private void Update()
@@ -46,11 +47,16 @@ public class LevelManager : MonoBehaviour
 	{
 		if (!ball)
 		{
-			ball = Instantiate(ballPrefab, spawnPoint.position, Quaternion.identity);
+			ball = Instantiate(
+				ballPrefab, 
+				levels[currentLevel].spawnPoint.position, 
+				Quaternion.identity
+			);
+
 			return;
 		}
 
-		ball.transform.position = spawnPoint.position;
+		ball.transform.position = levels[currentLevel].spawnPoint.position;
 		ball.rb.velocity = Vector3.zero;
 	}
 
@@ -58,14 +64,15 @@ public class LevelManager : MonoBehaviour
 	{
 		//SceneManager.LoadScene(++levelIndex);
 
-		if (levelIndex >= 0)
+		if (currentLevel >= 0)
 		{
-			levels[levelIndex].gameObject.SetActive(false);
+			levels[currentLevel].gameObject.SetActive(false);
 		}
-		levelIndex++;
-		if (levelIndex < levels.Length)
+		currentLevel++;
+		if (currentLevel < levels.Length)
 		{
-			levels[levelIndex].gameObject.SetActive(true);
+			levels[currentLevel].gameObject.SetActive(true);
+			SpawnBall();
 		}
 	}
 }
