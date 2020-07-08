@@ -1,15 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.Experimental.AI;
-using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
 	[SerializeField]
 	private Ball ballPrefab;
-	private Ball ball;
+	public Ball ball;
 
 	public Level[] levels;
 	public int currentLevel = -1;
@@ -32,7 +29,6 @@ public class LevelManager : MonoBehaviour
 		}
 
 		FinishLevel();
-
 	}
 
 	private void Update()
@@ -48,14 +44,15 @@ public class LevelManager : MonoBehaviour
 		if (!ball)
 		{
 			ball = Instantiate(
-				ballPrefab, 
-				levels[currentLevel].spawnPoint.position, 
+				ballPrefab,
+				levels[currentLevel].spawnPoint.position,
 				Quaternion.identity
 			);
 
 			return;
 		}
 
+		ball.gameObject.SetActive(true);
 		ball.transform.position = levels[currentLevel].spawnPoint.position;
 		ball.rb.velocity = Vector3.zero;
 	}
