@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CustomImageTarget : MonoBehaviour
+public class CustomImageTarget : DefaultTrackableEventHandler
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	protected override void OnTrackingFound()
+	{
+		base.OnTrackingFound();
+		LevelManager.Instance.SpawnBall();
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	protected override void OnTrackingLost()
+	{
+		base.OnTrackingLost();
+		LevelManager.Instance.ball.gameObject.SetActive(false);
+	}
 }
