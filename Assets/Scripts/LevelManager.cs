@@ -16,6 +16,7 @@ public class LevelManager : MonoBehaviour
 	public static LevelManager Instance;
 
 	public float levelHeight = 1;
+	public GameObject imageTarget;
 
 	private void Start()
 	{
@@ -49,7 +50,8 @@ public class LevelManager : MonoBehaviour
 			ball = Instantiate(
 				ballPrefab,
 				levels[currentLevel].spawnPoint.position,
-				Quaternion.identity
+				Quaternion.identity,
+				imageTarget.transform
 			);
 
 			return;
