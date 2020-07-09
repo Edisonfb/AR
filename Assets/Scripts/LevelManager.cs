@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
+	public GameObject panel;
+
 	[SerializeField]
 	private Ball ballPrefab;
 	public Ball ball;
@@ -28,7 +30,7 @@ public class LevelManager : MonoBehaviour
 			level.transform.position = Vector3.up * levelHeight;
 		}
 
-		FinishLevel();
+		StartLevel();
 	}
 
 	private void Update()
@@ -58,6 +60,11 @@ public class LevelManager : MonoBehaviour
 	}
 
 	public void FinishLevel()
+	{
+		panel.SetActive(true);
+	}
+
+	public void StartLevel()
 	{
 		//SceneManager.LoadScene(++levelIndex);
 
