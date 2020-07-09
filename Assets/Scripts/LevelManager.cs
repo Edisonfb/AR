@@ -30,6 +30,7 @@ public class LevelManager : MonoBehaviour
 			level.transform.position = Vector3.up * levelHeight;
 		}
 
+		panel.SetActive(false);
 		StartLevel();
 	}
 
@@ -76,7 +77,6 @@ public class LevelManager : MonoBehaviour
 		if (currentLevel < levels.Length)
 		{
 			levels[currentLevel].gameObject.SetActive(true);
-			SpawnBall();
 		}
 	}
 }
